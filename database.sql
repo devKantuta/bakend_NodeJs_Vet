@@ -180,6 +180,8 @@ FROM historia_clinica hc ,mascota ma
 WHERE ma.id = hc.id_mascota;
 */
 
+
+
 CREATE TABLE consulta (
     id SERIAL PRIMARY KEY,
     id_hc INT NOT NULL,
@@ -190,9 +192,11 @@ CREATE TABLE consulta (
     motivo TEXT NOT NULL,
     diagnostico TEXT NOT NULL,
     tratamiento TEXT NOT NULL,
+    precio DECIMAL(10,2) NOT NULL DEFAULT 0.00, -- Nuevo campo para el precio
     FOREIGN KEY (id_hc) REFERENCES historia_clinica(id),
     FOREIGN KEY (id_empleado) REFERENCES empleado(id)
 );
+
 
 /* 
 SELECT co.*,hc.num_hc ,pe.nombre AS veterinario
