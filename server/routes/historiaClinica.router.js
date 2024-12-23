@@ -3,6 +3,7 @@ import { historiaClinicaController } from "../controllers/historiaClinica.Contro
 const routerHistoriClinica = Router();
 
 routerHistoriClinica.get("/historias", historiaClinicaController.getAllData);
+routerHistoriClinica.get("/historias/num_hc", historiaClinicaController.getHcMaxValue);
 routerHistoriClinica.post("/historias", historiaClinicaController.createData);
 routerHistoriClinica.put("/historias/:id", historiaClinicaController.updateData);
 routerHistoriClinica.delete("/historias/:id", historiaClinicaController.deleteData);

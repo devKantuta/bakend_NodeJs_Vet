@@ -153,6 +153,7 @@ CREATE TABLE mascota (
 select table_name
 from information_schema.tables
 where table_schema= 'public';
+*/
 
 SELECT ma.* , pe.nombre as cliente ,  ra.nombre as raza , es.nombre as especie
 FROM persona pe , cliente cl , raza ra , especie es, mascota ma
@@ -162,7 +163,6 @@ WHERE pe.rol= 'cliente' and cl.id_persona = pe.id and ra.id_especie = es.id and
 select * from especie order by id;
 select * from raza order by id;
 select pe.*, cl.id_persona as id_persona from persona pe,cliente cl where rol='cliente' and cl.id_persona = pe.id;
-*/
 
 
 
@@ -170,17 +170,17 @@ CREATE TABLE historia_clinica (
     id SERIAL PRIMARY KEY,  -- ID auto incremental
     id_mascota INT NOT NULL,  -- ID de la mascatoa (clave foránea)
     fecha_reg DATE DEFAULT CURRENT_DATE ,  -- fecha de registro
-    num_hc INT NOT NULL,  -- numero historia de la de la historia clinica
+    num_hc VARCHAR(10) NOT NULL,  -- numero historia de la de la historia clinica
     FOREIGN KEY (id_mascota) REFERENCES mascota(id) ON DELETE CASCADE ON UPDATE CASCADE  -- Relación con especie
 );
 
-/* 
-SELECT hc.*,ma.nombre as mascota
-FROM historia_clinica hc ,mascota ma
-WHERE ma.id = hc.id_mascota;
-*/
 
+SELECT hc.*,ma.nombre as mascota,pe.nombre as cliente, pe.id as id_cliente, ra.nombre as raza, ma.edad
+FROM historia_clinica hc ,mascota ma,cliente cl,persona pe ,raza ra
+WHERE ma.id = hc.id_mascota AND ma.id_cliente=cl.id AND cl.id_persona=pe.id AND ma.id_raza = ra.id
+ORDER BY hc.fecha_reg;
 
+select * from cliente;
 
 CREATE TABLE consulta (
     id SERIAL PRIMARY KEY,
@@ -198,29 +198,32 @@ CREATE TABLE consulta (
 );
 
 
-/* 
-SELECT co.*,hc.num_hc ,pe.nombre AS veterinario
-	FROM persona pe,empleado em, historia_clinica hc, consulta co
-	WHERE pe.id=em.id_persona AND pe.rol='empleado' AND  hc.id=co.id_hc AND co.id_empleado = em.id_persona
-	ORDER BY co.id;
+
+
 
 SELECT co.*,hc.num_hc ,pe.nombre AS veterinario
 	      FROM persona pe,empleado em, historia_clinica hc, consulta co
 	      WHERE co.id_hc =hc.id and em.id=co.id_empleado and pe.id = (select id_persona from empleado where  co.id_empleado =id)
 	      ORDER BY co.id ;
+SELECT co.id_empleado,hc.num_hc ,pe.nombre AS veterinario
+	      FROM persona pe,empleado em, historia_clinica hc, consulta co
+	      WHERE co.id_hc =hc.id and em.id=co.id_empleado and pe.id = (select id_persona from empleado where  co.id_empleado =id)
+	      ORDER BY co.id ;
 
-*/
+SELECT e.id , e.id_persona , co.id_empleado FROM empleado e , consulta co;
 
-/*
+
+
 
 select * from  historia_clinica;
 select * from persona;
 select * from empleado;
 select * from consulta;
+select * from raza;
+
 select co.*, em.id_persona from consulta co, empleado em;
-*/
 
 
-
+select * from mascota;
 
 

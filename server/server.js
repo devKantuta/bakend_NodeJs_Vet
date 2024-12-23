@@ -16,6 +16,7 @@ import routerRaza from "./routes/raza.router.js";
 import routerMascota from "./routes/mascota.router.js";
 import routerHistoriClinica from "./routes/historiaClinica.router.js";
 import routerConsulta from "./routes/consulta.router.js";
+import routerReporte from "./routes/reporte.router.js";
 
 /* INSTANCIANDO VARIABLES */
 const app = express();
@@ -47,6 +48,7 @@ app.use('/api', routerRaza);
 app.use('/api', routerMascota);
 app.use('/api', routerHistoriClinica);
 app.use('/api', routerConsulta);
+app.use('/api', routerReporte);
 
 /* ON SERVER */
 app.listen(app.get('port'), () => {

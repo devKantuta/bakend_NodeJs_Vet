@@ -6,7 +6,7 @@ class EmpleadoService {
   // metodo get all clientes
   async getAllData() {
     try {
-      const query = `SELECT p.* , e.fecha_reg, t.nombre as turno
+      const query = `SELECT p.* ,e.id as id_empleado, e.fecha_reg, t.nombre as turno 
       FROM persona p , empleado e , turno t
       WHERE e.id_persona = p.id and p.rol='empleado' and e.id_turno = t.id
       ORDER BY p.id ASC`;

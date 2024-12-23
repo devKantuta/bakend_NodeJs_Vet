@@ -2,6 +2,21 @@ import HistoriaClinicaService from "../services/historia_clinica.service.js";
 
 const service = new HistoriaClinicaService();
 
+const getHcMaxValue = async (req, res) => {
+  try {
+    const response = await service.getHcMaxValue();
+    if (response.length > 0) {
+      return res.json(response);
+    }
+  } catch (error) {
+    //suc
+    return res.status(401).json({
+      ok: false,
+      message: error.message,
+    });
+  }
+};
+// get all data
 const getAllData = async (req, res) => {
   try {
     const response = await service.getAllData();
@@ -16,6 +31,8 @@ const getAllData = async (req, res) => {
     });
   }
 };
+
+
 //creando data
 const createData = async (req, res) => {
   try {
@@ -93,4 +110,5 @@ export const historiaClinicaController = {
   createData,
   updateData,
   deleteData,
+  getHcMaxValue
 };
